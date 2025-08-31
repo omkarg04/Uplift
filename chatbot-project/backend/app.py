@@ -1,13 +1,22 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+import os
+
+# Load .env
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)
 
-# MySQL connection string
-# Format: mysql+pymysql://username:password@host:port/database
-DB_URL = "mysql+pymysql://chatuser:ChatPass!234@localhost:3306/chatbotdb"
+# Read from .env
+DB_USER = os.getenv("MYSQL_USER")
+DB_PASS = os.getenv("MYSQL_PASSWORD")
+DB_NAME = os.getenv("MYSQL_DATABASE")
+DB_PORT = os.getenv("HOST_DB_PORT", "3306")
+
+DB_URL = f"mysql+pymysql://{DB_USER}:{DB_PASS}@localhost:{DB_PORT}/{DB_NAME}"
 
 # Create database engine
 engine = create_engine(DB_URL, echo=True)

@@ -9,3 +9,6 @@ frontend/dist/
 
 # General
 .DS_Store
+
+# Ignore environment files
+.env
